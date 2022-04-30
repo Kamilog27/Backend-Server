@@ -1,5 +1,4 @@
 const mongoose=require('mongoose');
-const { required } = require('nodemon/lib/config');
 const Schema=mongoose.Schema;
 
 const HeroeSchema=new Schema({
@@ -22,12 +21,6 @@ const HeroeSchema=new Schema({
     poder:{
         type:Array,
         required:true
-    },
-    vehiculo:{
-        type:String
-    },
-    tipo_de_vehiculo:{
-        type:String
     },
     img:{
         type:String

@@ -20,8 +20,8 @@ const crearHeroes = async (req, res = response) => {
     let nombreMin = toTitleCase(nombre);
 
     try {
-        const exiteHeroe = await Heroes.findOne({ nombreMin });
-        if (exiteHeroe) {
+        const existeHeroe = await Heroes.findOne({ nombreMin });
+        if (existeHeroe) {
             return res.status(400).json({
                 ok: false,
                 msg: 'El SuperHeroe ya esta registrado'
@@ -70,8 +70,6 @@ const actualizarHeroes = async (req, res = response) => {
         delete campos.grupo;
         delete campos.condicion;
         delete campos.poder;
-        delete campos.vehiculo;
-        delete campos.tipo_de_vehiculo;
         delete campos.img;
 
         const heroeActualizado = await Heroes.findByIdAndUpdate(id, campos, { new: true });
