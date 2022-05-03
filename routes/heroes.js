@@ -6,11 +6,13 @@ const { validarCampos } = require('../middlewares/validarcampos');
 
 router.get('/', getHeroes);
 router.post('/',
-    [check('nombre').not().isEmpty(),
+    [check('nombre','El nombre es obligatorio').not().isEmpty(),
     check('grupo', 'El grupo es obligatorio').not().isEmpty(),
     check('ciudad', 'La ciudad es obligatoria').not().isEmpty(),
     check('condicion', 'La condicion es obligatoria').not().isEmpty(),
     check('poder', 'El poder es obligatorio').not().isEmpty(),
+    check('vehiculo', 'El vehiculo es obligatorio').not().isEmpty(),
+    check('imagen', 'La imagen es obligatorio').not().isEmpty(),
         validarCampos
     ], crearHeroes);
 router.put('/:id',

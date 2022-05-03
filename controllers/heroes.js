@@ -2,14 +2,15 @@ const Heroes = require("../models/heroes")
 
 const getHeroes = async (req, res) => {
     const heroes = await Heroes.find({});
-    res.json({
+    res.json([{
         ok: true,
         heroes
-    })
+    }])
 }
 
 const crearHeroes = async (req, res = response) => {
     const { nombre } = (req.body);
+    
     function toTitleCase(str) {
         let title = str.toLowerCase().split(' ');
         for (var i = 0; i < title.length; i++) {
@@ -18,9 +19,10 @@ const crearHeroes = async (req, res = response) => {
         return title.join(' ');
     }
     let nombreMin = toTitleCase(nombre);
-
+    
     try {
-        const existeHeroe = await Heroes.findOne({ nombreMin });
+    
+        const existeHeroe = await Heroes.findOne({ nombre:nombreMin });
         if (existeHeroe) {
             return res.status(400).json({
                 ok: false,

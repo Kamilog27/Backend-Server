@@ -3,10 +3,10 @@ const Vehiculos = require("../models/vehiculos");
 const getVehiculos = async (req, res) => {
     const vehiculos = await Vehiculos.find()
                                     .populate('heroes','nombre');
-    res.json({
+    res.json([{
         ok: true,
         vehiculos
-    })
+    }])
 }
 const crearVehiculos = async (req, res = response) => {
     const { nombre} = (req.body);
@@ -20,7 +20,7 @@ const crearVehiculos = async (req, res = response) => {
     let vehiculoMin = toTitleCase(nombre);
 
     try {
-        const existeVehiculo = await Vehiculos.findOne({ vehiculoMin });
+        const existeVehiculo = await Vehiculos.findOne({ nombre:vehiculoMin });
         if (existeVehiculo) {
             return res.status(400).json({
                 ok: false,

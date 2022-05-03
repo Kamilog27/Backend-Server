@@ -22,8 +22,13 @@ const HeroeSchema=new Schema({
         type:Array,
         required:true
     },
-    img:{
-        type:String
+    nombreVehiculo:{
+        type:String,
+        required:true
+    },
+    imagen:{
+        type:String,
+        required:true
     }
 
 });
