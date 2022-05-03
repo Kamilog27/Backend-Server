@@ -22,7 +22,7 @@ const HeroeSchema=new Schema({
         type:Array,
         required:true
     },
-    nombreVehiculo:{
+    vehiculo:{
         type:String,
         required:true
     },
