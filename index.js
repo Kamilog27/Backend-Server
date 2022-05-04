@@ -21,5 +21,6 @@ app.listen(process.env.PORT,()=>{
 //Rutas
 
 app.use('/api/heroes',require('./routes/heroes'));
+app.use('/api/heroe',require('./routes/heroe'));
 app.use('/api/vehiculos',require('./routes/vehiculos'));
 app.use('/api/buscar',require('./routes/busquedaheroes'));

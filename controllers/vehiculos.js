@@ -9,7 +9,7 @@ const getVehiculos = async (req, res) => {
     }])
 }
 const crearVehiculos = async (req, res = response) => {
-    const { nombre} = (req.body);
+    const { nombreVehiculo} = (req.body);
     function toTitleCase(str) {
         let title = str.toLowerCase().split(' ');
         for (var i = 0; i < title.length; i++) {
@@ -17,17 +17,17 @@ const crearVehiculos = async (req, res = response) => {
         }
         return title.join(' ');
     }
-    let vehiculoMin = toTitleCase(nombre);
+    let vehiculoMin = toTitleCase(nombreVehiculo);
 
     try {
-        const existeVehiculo = await Vehiculos.findOne({ nombre:vehiculoMin });
+        const existeVehiculo = await Vehiculos.findOne({ nombreVehiculo:vehiculoMin });
         if (existeVehiculo) {
             return res.status(400).json({
                 ok: false,
                 msg: 'El Vehiculo ya esta registrado'
             })
         }
-        req.body.nombre = vehiculoMin;
+        req.body.nombreVehiculo = vehiculoMin;
 
         const vehiculo= new Vehiculos(req.body);
         await vehiculo.save();

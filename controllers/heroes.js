@@ -8,9 +8,33 @@ const getHeroes = async (req, res) => {
     }])
 }
 
+const getHeroe = async (req, res) => {
+    let id = req.params.id;
+    try {
+        const heroe = await Heroes.findById(id);
+        if (!heroe) {
+            res.status(400).json({
+                ok: false,
+                msg: 'No existe un heroe con ese Id'
+            })
+        }
+        res.status(200).json({
+            ok: true,
+            msg: 'Heroe Encontrado',
+            heroe
+        })
+    } catch (error) {
+        res.status(500).json({
+            ok: false,
+            msg: 'Error comuniquese con el administrador',
+        })
+    }
+
+}
+
 const crearHeroes = async (req, res = response) => {
     const { nombre } = (req.body);
-    
+
     function toTitleCase(str) {
         let title = str.toLowerCase().split(' ');
         for (var i = 0; i < title.length; i++) {
@@ -19,10 +43,10 @@ const crearHeroes = async (req, res = response) => {
         return title.join(' ');
     }
     let nombreMin = toTitleCase(nombre);
-    
+
     try {
-    
-        const existeHeroe = await Heroes.findOne({ nombre:nombreMin });
+
+        const existeHeroe = await Heroes.findOne({ nombre: nombreMin });
         if (existeHeroe) {
             return res.status(400).json({
                 ok: false,
@@ -66,16 +90,15 @@ const actualizarHeroes = async (req, res = response) => {
             return title.join(' ');
         }
         let nombreMin = toTitleCase(nombre);
-    
-        req.body.nombre=nombreMin;
-        const campos=req.body;
+
+        req.body.nombre = nombreMin;
+        const campos = req.body;
         delete campos.grupo;
         delete campos.condicion;
         delete campos.poder;
         delete campos.img;
 
         const heroeActualizado = await Heroes.findByIdAndUpdate(id, campos, { new: true });
-        console.log(heroeActualizado);
         res.json({
             ok: true,
             msg: 'El Super Heroe se ha actualizado',
@@ -89,4 +112,4 @@ const actualizarHeroes = async (req, res = response) => {
     }
 
 }
-module.exports = { getHeroes, crearHeroes, actualizarHeroes }
+module.exports = { getHeroes, crearHeroes, actualizarHeroes, getHeroe }
